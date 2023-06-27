@@ -6,7 +6,7 @@ import streamlit as st
 
 st.title('お好み焼き判別AI')
 
-uploaded_file = st.file_uploader("画像アップロード", type='jpg','png')
+uploaded_file = st.file_uploader("画像アップロード", type='jpg,png')
 image = Image.open(uploaded_file)
 img_array = np.array(image)
 st.image(img_array,caption = 'アップロード画像',use_column_width = True)
