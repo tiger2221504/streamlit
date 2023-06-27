@@ -11,8 +11,10 @@ image = Image.open(uploaded_file)
 img_array = np.array(image)
 st.image(img_array,caption = 'アップロード画像',use_column_width = True)
 
+model_path = Streamlit/model.h5
+
 image = image.resize((64,64))
-model = load_model("model.h5")
+model = load_model(model_path)
 np_image = np.array(image)
 np_image = np_image / 255
 np_image = np_image[np.newaxis, :, :, :]
