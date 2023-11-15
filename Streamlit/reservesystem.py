@@ -12,7 +12,7 @@ scope = [
    'https://www.googleapis.com/auth/drive'
    ]
 #ダウンロードしたjsonファイル名をクレデンシャル変数に設定。
-credentials = Credentials.from_service_account_file("./.streamlit/pythongs-405212-dee426556119.json", scopes=scope)
+credentials = Credentials.from_service_account_file("./Streamlit/pythongs-405212-dee426556119.json", scopes=scope)
 #OAuth2の資格情報を使用してGoogle APIにログイン。
 gc = gspread.authorize(credentials)
 #スプレッドシートIDを変数に格納する。
