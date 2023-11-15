@@ -50,7 +50,7 @@ def MakeDf(worksheet):
   return df
 
 
-st.title('機材予約システム')
+st.title('機材予約システム β')
 
 st.write('''## ●予約''')
 with st.form("reserve_form", clear_on_submit=False):
