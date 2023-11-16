@@ -90,11 +90,20 @@ st.write('''##''')
 
 st.write('''## ●予約リスト''')
 select_kizai = st.multiselect("■機材名で絞り込み", options=kizai_list, default=kizai_list)
+stock = st.radio(label='■表示順', options=('予約番号', '使用開始日', '返却予定日'), index=0, horizontal=True,)
+
 if st.button(label='予約リストを表示(更新)'):
   st.write('※登録した順に表示されています')
   viewdf = MakeDf(worksheet)
   viewdf = viewdf[viewdf["機材名"].isin(select_kizai) & (pd.to_datetime(viewdf["返却予定日"])>datetime.datetime.today())]
-  viewdf = viewdf.sort_values(by="返却予定日")
+
+  if stock == "予約番号":
+    viewdf = viewdf.sort_index()
+  elif stock == "使用開始日":
+    viewdf = viewdf.sort_values(by="使用開始日")
+  elif stock == "返却予定日":
+    viewdf = viewdf.sort_values(by="返却予定日")
+    
   st.table(viewdf)
 
 st.write('''##''')
