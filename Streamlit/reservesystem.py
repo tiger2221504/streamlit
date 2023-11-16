@@ -4,7 +4,6 @@ import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 import altair as alt
-import math
 
 # 2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = [
