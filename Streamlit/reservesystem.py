@@ -87,8 +87,8 @@ with st.form("reserve_form", clear_on_submit=False):
 st.write('''##''')
 
 st.write('''## ●予約リスト''')
-if st.checkbox(label='予約リストを表示(表形式)'):
-  select_kizai = st.multiselect("■機材名で絞り込み", options=kizai_list, default=kizai_list)
+select_kizai = st.multiselect("■機材名で絞り込み", options=kizai_list, default=kizai_list)
+if st.button(label='予約リストを表示(表形式)'):
   st.write('※登録した順に表示されています')
   viewdf = MakeDf(worksheet)
   viewdf = viewdf[viewdf["機材名"].isin(select_kizai) & (pd.to_datetime(viewdf["返却予定日"])>datetime.datetime.today())]
