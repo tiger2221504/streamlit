@@ -94,6 +94,7 @@ if st.button(label='予約リストを表示(更新)'):
   st.write('※登録した順に表示されています')
   viewdf = MakeDf(worksheet)
   viewdf = viewdf[viewdf["機材名"].isin(select_kizai) & (pd.to_datetime(viewdf["返却予定日"])>datetime.datetime.today())]
+  viewdf.sort_values(by="返却予定日")
   st.table(viewdf)
 
 st.write('''##''')
