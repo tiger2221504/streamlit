@@ -56,14 +56,14 @@ def reserve_bool(kizai,name,start,end):
   df = MakeDf(worksheet)
   for i in range(len(df)):
     st.write("i=",i)
-    st.write(df[0][i])
-    if df[0][i]==kizai:
+    st.write(df.iat[0,i])
+    if df.iat[0,i]==kizai:
       st.write(kizai)
-      if df[1][i]==name:
+      if df.iat[1,i]==name:
         st.write(name)
-        if df[2][i]==start:
+        if df.iat[2,i]==start:
           st.write(start)
-          if df[3][i]==end:
+          if df.iat[3,i]==end:
             st.write(end)
             return True
           
