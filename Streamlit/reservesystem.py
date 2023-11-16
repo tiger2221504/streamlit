@@ -4,7 +4,7 @@ import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 import altair as alt
-#import streamlit_calendar as st_calendar
+import streamlit_calendar as st_calendar
 
 # 2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = [
@@ -50,6 +50,18 @@ def del_worksheet(num):
 def MakeDf(worksheet):
   df = pd.DataFrame(worksheet.get_all_records())
   return df
+
+
+#ページコンフィグ
+st.set_page_config(
+     page_title="機材予約システム",
+     menu_items={
+         'Get Help': 'https://www.extremelycoolapp.com/help',
+         'Report a bug': "https://www.extremelycoolapp.com/bug",
+         'About': "# This is a header. This is an *extremely* cool app!"
+         'Test': "Test"
+     }
+ )
 
 
 st.title('GHK 機材予約システムβ')
@@ -103,7 +115,7 @@ if st.button(label='予約リストを表示(更新)'):
     viewdf = viewdf.sort_values(by="使用開始日")
   elif stock == "返却予定日":
     viewdf = viewdf.sort_values(by="返却予定日")
-    
+
   st.table(viewdf)
 
 st.write('''##''')
