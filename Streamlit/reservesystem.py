@@ -54,9 +54,9 @@ def MakeDf(worksheet):
 
 #ページコンフィグ
 st.set_page_config(
-     page_title="yoyaku",
+     page_title="Yoyaku",
      menu_items={
-         'Google spreadsheet': "https://docs.google.com/spreadsheets/d/1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650/edit?usp=sharing",
+         'Get help': "https://docs.google.com/spreadsheets/d/1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650/edit?usp=sharing",
          'About': "# GHK"
      }
  )
