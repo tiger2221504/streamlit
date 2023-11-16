@@ -69,7 +69,7 @@ def date_bool(df,start,end):
     if df.iat[i,0]==kizai:
       if (pd.to_datetime(df.iat[i,2])<start) & (pd.to_datetime(df.iat[i,3])>start):
         return True
-      if (pd.to_datetime(df.iat[i,2])<end) & (pd.to_datetime(df.iat[i,3])>end:)
+      if (pd.to_datetime(df.iat[i,2])<end) & (pd.to_datetime(df.iat[i,3])>end):
         return True
     continue
           
