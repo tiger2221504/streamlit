@@ -4,7 +4,7 @@ import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 import altair as alt
-import streamlit_calendar as st_calendar
+#import streamlit_calendar as st_calendar
 
 # 2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = [
@@ -167,6 +167,3 @@ with st.form("del_form", clear_on_submit=True):
     except Exception as e:
       st.markdown("**:red[エラー]**")
       st.write(e)
-
-
-
