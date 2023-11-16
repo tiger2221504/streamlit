@@ -56,9 +56,10 @@ def MakeDf(worksheet):
 st.set_page_config(
      page_title="機材予約システム",
      menu_items={
-         'Get Help': 'https://www.extremelycoolapp.com/help',
-         'Report a bug': "https://www.extremelycoolapp.com/bug",
-         'About': "# This is a header. This is an *extremely* cool app!"
+         'スプレッドシート': "https://docs.google.com/spreadsheets/d/1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650/edit?usp=sharing",
+         'About': "# GHK機材予約システム
+                  機材の予約ができます。
+                  "
      }
  )
 
