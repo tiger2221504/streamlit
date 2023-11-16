@@ -54,9 +54,9 @@ def MakeDf(worksheet):
 
 #ページコンフィグ
 st.set_page_config(
-     page_title="機材予約システム",
+     page_title="yoyaku",
      menu_items={
-         'Google spreadsheet': "https://www.extremelycoolapp.com/bug",
+         'Google spreadsheet': "https://docs.google.com/spreadsheets/d/1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650/edit?usp=sharing",
          'About': "# GHK"
      }
  )
