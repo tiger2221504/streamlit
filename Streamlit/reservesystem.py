@@ -55,7 +55,7 @@ def MakeDf(worksheet):
 def reserve_bool(kizai,name,start,end):
   df = MakeDf(worksheet)
   for i in range(len(df)):
-    st.write(i)
+    st.write("i=",i)
     if df[0]==kizai:
       st.write(kizai)
       if df[1]==name:
@@ -101,7 +101,7 @@ with st.form("reserve_form", clear_on_submit=False):
       elif name == "" or purpose == "" :
         st.markdown("**:red[エラー]**")
         st.markdown(":red[(入力されていない必須項目があります。)]")
-      elif reserve_bool(kizai,name,start,end):
+      elif reserve_bool(kizai,name,str(start),str(end)):
         st.markdown("**:red[エラー]**")
         st.markdown(":red[重複した予約が既に存在します。]")
         st.markdown(":red[編集したい場合は一度削除してください。]")
