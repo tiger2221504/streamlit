@@ -57,7 +57,7 @@ st.set_page_config(
      page_title="機材予約システム",
      menu_items={
          'Google spreadsheet': "https://www.extremelycoolapp.com/bug",
-         'About': "# GHK機材予約システム"
+         'About': "# GHK"
      }
  )
 
