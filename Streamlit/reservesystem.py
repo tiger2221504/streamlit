@@ -67,9 +67,9 @@ def reserve_bool(df,kizai,name,start,end):
 def date_bool(df,start,end):
   for i in range(len(df)):
     if df.iat[i,0]==kizai:
-      if (pd.to_datetime(df.iat[i,2])<start) & (pd.to_datetime(df.iat[i,3])>start):
+      if (pd.to_datetime(df.iat[i,2])<pd.to_datetime(start)) & (pd.to_datetime(df.iat[i,3])>pd.to_datetime(start)):
         return True
-      if (pd.to_datetime(df.iat[i,2])<end) & (pd.to_datetime(df.iat[i,3])>end):
+      if (pd.to_datetime(df.iat[i,2])<pd.to_datetime(end)) & (pd.to_datetime(df.iat[i,3])>pd.to_datetime(end)):
         return True
     continue
           
