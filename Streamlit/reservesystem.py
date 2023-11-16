@@ -26,8 +26,7 @@ worksheet = workbook.worksheet('sheet1')
 #機材リスト
 kizai_sheet = workbook.worksheet('list')
 kizai_df = pd.DataFrame(kizai_sheet.get_all_records())
-kizai_list = []
-kizai_list.append(kizai_df)
+kizai_list = kizai_df["機材名"].tolist()
 
 
 def write_worksheet(kizai,name,start,end,purpose,remarks):
