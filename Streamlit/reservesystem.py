@@ -71,6 +71,8 @@ def date_bool(df,start,end):
         return True
       if (pd.to_datetime(df.iat[i,2])<=pd.to_datetime(end)) & (pd.to_datetime(df.iat[i,3])>=pd.to_datetime(end)):
         return True
+      if (pd.to_datetime(df.iat[i,2])>=pd.to_datetime(start)) & (pd.to_datetime(df.iat[i,3])<=pd.to_datetime(end)):
+        return True
     continue
           
   return False
