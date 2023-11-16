@@ -4,6 +4,7 @@ import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 import altair as alt
+import math
 
 # 2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = [
@@ -23,7 +24,10 @@ workbook = gc.open_by_key(SPREADSHEET_KEY)
 worksheet = workbook.worksheet('sheet1')
 
 #機材リスト
-kizai_list = ["CAM1","CAM2","ZOOM","SM58","ガンマイク","照明","その他(備考に記載)"]
+kizai_sheet = workbook.worksheet('list')
+kizai_df = pd.DataFrame(kizai_sheet.get_all_records())
+kizai_list = []
+kizai_list.append(kizai_df)
 
 
 def write_worksheet(kizai,name,start,end,purpose,remarks):
@@ -49,7 +53,7 @@ def MakeDf(worksheet):
   return df
 
 
-st.title('機材予約システム β')
+st.title('機材予約システム')
 
 st.write('''## ●予約''')
 with st.form("reserve_form", clear_on_submit=False):
