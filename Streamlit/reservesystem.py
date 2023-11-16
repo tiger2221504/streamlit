@@ -66,6 +66,7 @@ def reserve_bool(kizai,name,start,end):
           if df.iat[3,i]==end:
             st.write(end)
             return True
+    continue
           
   return False
 
