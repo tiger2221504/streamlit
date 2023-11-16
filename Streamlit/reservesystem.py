@@ -55,15 +55,15 @@ def MakeDf(worksheet):
 def reserve_bool(kizai,name,start,end):
   df = MakeDf(worksheet)
   for i in df:
-    print(i)
+    st.write(i)
     if i[0]==kizai:
-      print(kizai)
+      st.write(kizai)
       if i[1]==name:
-        print(name)
+        st.write(name)
         if i[2]==start:
-          print(start)
+          st.write(start)
           if i[3]==end:
-            print(end)
+            st.write(end)
             return True
           
   return False
