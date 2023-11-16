@@ -64,6 +64,17 @@ def reserve_bool(df,kizai,name,start,end):
   return False
 
 
+def date_bool(df,start,end):
+  for i in range(len(df)):
+    if pd.to_datetime(df.iat[i,2])<start & pd.to_datetime(df.iat[i,3])>start:
+      return True
+    if pd.to_datetime(df.iat[i,2])<end & pd.to_datetime(df.iat[i,3])>end:
+      return True
+    continue
+          
+  return False
+
+
 #ページコンフィグ
 st.set_page_config(
      page_title="機材予約システム",
@@ -101,6 +112,9 @@ with st.form("reserve_form", clear_on_submit=False):
         st.markdown("**:red[エラー]**")
         st.markdown(":red[重複した予約が既に存在します。]")
         st.markdown(":red[編集したい場合は一度削除してください。]")
+      elif date_bool(df,start,end):
+        st.markdown("**:red[エラー]**")
+        st.markdown(":red[同じ機材で日付の重なった予約が既に存在します。]")
       else:
         #スプレッドシートに追加する
         write_worksheet(kizai,name,str(start),str(end),purpose,remarks)
