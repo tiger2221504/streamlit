@@ -52,7 +52,7 @@ def MakeDf(worksheet):
   return df
 
 
-st.title('GHK 機材予約システム')
+st.title('GHK 機材予約システムβ')
 
 st.write('''## ●予約''')
 with st.form("reserve_form", clear_on_submit=False):
