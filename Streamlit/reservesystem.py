@@ -6,6 +6,9 @@ from google.oauth2.service_account import Credentials
 import altair as alt
 #import streamlit_calendar as st_calendar
 
+#タイムゾーンの設定
+tz = datetime.timezone(datetime.timedelta(hours=9))
+
 # 2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = [
    'https://www.googleapis.com/auth/spreadsheets',
@@ -94,8 +97,8 @@ st.write('''## ●新規予約''')
 with st.form("reserve_form", clear_on_submit=False):
     kizai = st.selectbox('*使用機材',kizai_list)
     name = st.text_input('*使用者名')
-    start = st.date_input('*使用開始日:', datetime.datetime.today(),min_value=datetime.datetime.today())
-    end = st.date_input('*返却予定日:', datetime.datetime.today(),min_value=datetime.datetime.today())
+    start = st.date_input('*使用開始日:', datetime.datetime.today(tz),min_value=datetime.datetime.today(tz))
+    end = st.date_input('*返却予定日:', datetime.datetime.today(tz),min_value=datetime.datetime.today(tz))
     purpose = st.text_input('*使用目的')
     remarks = st.text_input('備考')
     submitted1 = st.form_submit_button("予約追加")
@@ -138,7 +141,7 @@ stock = st.radio(label='■表示順', options=('予約番号', '使用開始日
 
 if st.button(label='予約リストを表示(更新)'):
   viewdf = MakeDf(worksheet)
-  viewdf = viewdf[viewdf["機材名"].isin(select_kizai) & (pd.to_datetime(viewdf["返却予定日"])>datetime.datetime.today())]
+  viewdf = viewdf[viewdf["機材名"].isin(select_kizai) & (pd.to_datetime(viewdf["返却予定日"])>datetime.datetime.today(tz))]
 
   if stock == "予約番号":
     viewdf = viewdf.sort_index()
