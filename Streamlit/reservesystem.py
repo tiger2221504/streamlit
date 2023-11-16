@@ -55,6 +55,7 @@ def MakeDf(worksheet):
 def reserve_bool(kizai,name,start,end):
   df = MakeDf(worksheet)
   for i in df:
+    print(i)
     if i[0]==kizai:
       print(kizai)
       if i[1]==name:
