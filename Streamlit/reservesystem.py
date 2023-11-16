@@ -52,6 +52,18 @@ def MakeDf(worksheet):
   return df
 
 
+def reserve_bool(kizai,name,start,end):
+  df = MakeDf(worksheet)
+  for i in df:
+    if i[0]==kizai:
+      if i[1]==name:
+        if i[2]==start:
+          if i[3]==end:
+            return True
+          
+  return False
+
+
 #ページコンフィグ
 st.set_page_config(
      page_title="機材予約システム",
@@ -64,7 +76,7 @@ st.set_page_config(
 
 st.title('GHK 機材予約システムβ')
 
-st.write('''## ●予約''')
+st.write('''## ●新規予約''')
 with st.form("reserve_form", clear_on_submit=False):
     kizai = st.selectbox('*使用機材',kizai_list)
     name = st.text_input('*使用者名')
@@ -84,6 +96,10 @@ with st.form("reserve_form", clear_on_submit=False):
       elif name == "" or purpose == "" :
         st.markdown("**:red[エラー]**")
         st.markdown(":red[(入力されていない必須項目があります。)]")
+      elif reserve_bool(kizai,name,start,end):
+        st.markdown("**:red[エラー]**")
+        st.markdown(":red[重複した予約が既に存在します。]")
+        st.markdown(":red[編集したい場合は一度削除してください。]")
       else:
         #スプレッドシートに追加する
         write_worksheet(kizai,name,str(start),str(end),purpose,remarks)
