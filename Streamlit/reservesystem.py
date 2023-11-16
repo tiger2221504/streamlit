@@ -52,8 +52,7 @@ def MakeDf(worksheet):
   return df
 
 
-def reserve_bool(kizai,name,start,end):
-  df = MakeDf(worksheet)
+def reserve_bool(df,kizai,name,start,end):
   for i in range(len(df)):
     st.write("i=",i)
     st.write(df.iat[0,i])
@@ -97,13 +96,14 @@ with st.form("reserve_form", clear_on_submit=False):
         submitted=True
 
     if submitted1:
+      df = MakeDf(worksheet)
       if start > end :
         st.markdown("**:red[エラー]**")
         st.markdown(":red[(返却予定日は使用開始日より前に設定できません。)]")
       elif name == "" or purpose == "" :
         st.markdown("**:red[エラー]**")
         st.markdown(":red[(入力されていない必須項目があります。)]")
-      elif reserve_bool(kizai,name,str(start),str(end)):
+      elif reserve_bool(df,kizai,name,str(start),str(end)):
         st.markdown("**:red[エラー]**")
         st.markdown(":red[重複した予約が既に存在します。]")
         st.markdown(":red[編集したい場合は一度削除してください。]")
