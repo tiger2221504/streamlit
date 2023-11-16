@@ -54,7 +54,7 @@ def MakeDf(worksheet):
 
 #ページコンフィグ
 st.set_page_config(
-     page_title="Yoyaku",
+     page_title="機材予約システム",
      menu_items={
          'Get help': "https://docs.google.com/spreadsheets/d/1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650/edit?usp=sharing",
          'About': "# GHK機材予約システム"
