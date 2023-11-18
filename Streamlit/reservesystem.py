@@ -81,11 +81,14 @@ def date_bool(df,start,end):
 #ページコンフィグ
 st.set_page_config(
      page_title="機材予約システム",
+     page_icon="📹",
+     initial_sidebar_state="collapsed",
      menu_items={
          'Get help': "https://docs.google.com/spreadsheets/d/1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650/edit?usp=sharing",
          'About': "# GHK機材予約システム"
      }
  )
+
 
 
 st.title('GHK 機材予約システムβ')
