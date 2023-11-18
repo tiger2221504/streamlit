@@ -88,7 +88,7 @@ st.set_page_config(
          'About': """
          # GHK機材予約システム
          機材を予約できます。機材の管理については技術課まで。
-         © 2023 GHK
+         @ 2023 GHK
          """
      }
  )
@@ -146,7 +146,7 @@ exp.write("機材リストの編集もこちらから。")
 st.write('''##''')
 
 st.write('''## ●予約リスト''')
-select_kizai = st.multiselect("■機材名で絞り込み", options=kizai_list, default=kizai_list)
+select_kizai = st.multiselect("■機材名で絞り込み", options=kizai_list, default=None)
 stock = st.radio(label='■表示順', options=('予約番号', '使用開始日', '返却予定日'), index=0, horizontal=True,)
 
 if st.button(label='予約リストを表示(更新)'):
