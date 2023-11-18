@@ -90,6 +90,10 @@ st.set_page_config(
 
 st.title('GHK 機材予約システムβ')
 
+st.markdown([<span class="hljs-string"> Googleスプレッドシート</span>](<span class="hljs-link">https://docs.google.com/spreadsheets/d/1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650/edit?usp=sharing</span>, unsafe<span class="hljs-emphasis">_allow_</span>html=True))
+st.write("スプレッドシートから直接編集も可能です。")
+st.write("機材リストの編集もこちらから。")
+
 st.write('''## ●新規予約''')
 with st.form("reserve_form", clear_on_submit=False):
     kizai = st.selectbox('*使用機材',kizai_list)
