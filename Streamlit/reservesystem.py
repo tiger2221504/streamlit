@@ -91,7 +91,7 @@ st.set_page_config(
 st.title('GHK 機材予約システムβ')
 
 glink = '[<span class="hljs-string">Googleスプレッドシート</span>](<span class="hljs-link">https://docs.google.com/spreadsheets/d/1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650/edit#gid=1580396357</span>)'
-st.markdown(glink, unsafe<span class="hljs-emphasis">_allow_</span>html=True)
+st.markdown(glink, unsafe_allow_html=True)
 st.write("スプレッドシートから直接編集も可能です。")
 st.write("機材リストの編集もこちらから。")
 
