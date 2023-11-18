@@ -90,11 +90,6 @@ st.set_page_config(
 
 st.title('GHK 機材予約システムβ')
 
-glink = '<a href="https://docs.google.com/spreadsheets/d/1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650/edit#gid=1580396357" target="_blank">コチラのサイト</a>'
-st.markdown(glink, unsafe_allow_html=True)
-st.write("スプレッドシートから直接編集も可能です。")
-st.write("機材リストの編集もこちらから。")
-
 st.write('''## ●新規予約''')
 with st.form("reserve_form", clear_on_submit=False):
     kizai = st.selectbox('*使用機材',kizai_list)
@@ -134,6 +129,12 @@ with st.form("reserve_form", clear_on_submit=False):
         st.write('使用開始日：',start)
         st.write('返却予定日：',end)
         st.write('使用目的：',purpose)
+
+exp = st.expander("Tips", expanded=False)
+glink = '<a href="https://docs.google.com/spreadsheets/d/1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650/edit#gid=1580396357" target="_blank">Googleスプレッドシート</a>'
+exp.markdown(glink, unsafe_allow_html=True)
+exp.write("スプレッドシートから直接編集も可能です。")
+exp.write("機材リストの編集もこちらから。")
 
 st.write('''##''')
 
