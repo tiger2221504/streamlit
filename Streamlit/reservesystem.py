@@ -133,7 +133,7 @@ with st.form("reserve_form", clear_on_submit=False):
         st.write('返却予定日：',end)
         st.write('使用目的：',purpose)
 
-exp = st.expander("Tips", expanded=False)
+exp = st.expander("🌟Tips", expanded=False)
 glink = '<a href="https://docs.google.com/spreadsheets/d/1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650/edit#gid=1580396357" target="_blank">Googleスプレッドシート</a>'
 exp.markdown(glink, unsafe_allow_html=True)
 exp.write("スプレッドシートから直接編集も可能です。")
