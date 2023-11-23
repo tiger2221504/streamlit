@@ -95,7 +95,11 @@ st.set_page_config(
 
 
 
-st.title('GHK 機材予約システムβ')
+st.title('GHK 機材予約システム')
+
+howtouse = '<a href="https://drive.google.com/file/d/1A-tezkeV_QwXTGuRRs87GMxUsFXZWyTz/view?usp=drive_link" target="_blank">使い方</a>'
+st.markdown(howtouse, unsafe_allow_html=True)
+st.write("")
 
 st.write('''## ●新規予約''')
 with st.form("reserve_form", clear_on_submit=False):
