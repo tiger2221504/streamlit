@@ -150,7 +150,7 @@ exp.write("機材リストの編集もこちらから。")
 st.write('''##''')
 
 st.write('''## ●予約リスト''')
-select_kizai = st.multiselect("■機材名で絞り込み", options=kizai_list, default=None,placeholder="機材を選んでください")
+select_kizai = st.multiselect("■機材名で絞り込み", options=kizai_list, default=kizai_list,placeholder="機材を選んでください")
 stock = st.radio(label='■表示順', options=('予約番号', '使用開始日', '返却予定日'), index=0, horizontal=True,)
 
 if st.button(label='予約リストを表示(更新)'):
