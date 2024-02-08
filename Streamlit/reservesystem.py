@@ -97,7 +97,7 @@ st.set_page_config(
 
 st.title('GHK 機材予約システム')
 
-howtouse = '<a href="https://drive.google.com/file/d/1A-tezkeV_QwXTGuRRs87GMxUsFXZWyTz/view?usp=drive_link" target="_blank">使い方</a>'
+howtouse = '<a href="https://drive.google.com/file/d/1_opa9G1174gYz0dc0H3JVpJIUTaqvWZQ/view?usp=sharing" target="_blank">使い方</a>'
 st.markdown(howtouse, unsafe_allow_html=True)
 st.write("")
 
