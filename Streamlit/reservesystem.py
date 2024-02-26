@@ -16,7 +16,7 @@ credentials = Credentials.from_service_account_file("./Streamlit/pythongs-405212
 #OAuth2の資格情報を使用してGoogle APIにログイン。
 gc = gspread.authorize(credentials)
 #スプレッドシートIDを変数に格納する。
-SPREADSHEET_KEY = '1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650'
+SPREADSHEET_KEY = '185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow'
 
 # スプレッドシート（ブック）を開く
 workbook = gc.open_by_key(SPREADSHEET_KEY)
@@ -142,7 +142,7 @@ with st.form("reserve_form", clear_on_submit=False):
         st.write('使用目的：',purpose)
 
 exp = st.expander("🌟Tips", expanded=False)
-glink = '<a href="https://docs.google.com/spreadsheets/d/1LkW6x8rBrNog_ynW7Dvs4rEGmdPGbPm9AYa7VHMG650/edit#gid=1580396357" target="_blank">Googleスプレッドシート</a>'
+glink = '<a href="https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?usp=sharing" target="_blank">Googleスプレッドシート</a>'
 exp.markdown(glink, unsafe_allow_html=True)
 exp.write("スプレッドシートから直接編集も可能です。")
 exp.write("機材リストの編集もこちらから。")
