@@ -84,7 +84,7 @@ def date_bool(df,start,end):
 #新規予約メール
 def send_new_email(kizai,name,start,end,purpose,remarks):
   msg = make_mime_text(
-    mail_to = send_address,
+    mail_to = st.secrets["send_address"],
     subject = "🔔【新規予約】"+kizai,
     body = "🔔予約完了通知<br><br>●機材名：kizai"+"<br>●名前："+name+"<br>●使用開始日："+start+"<br>●返却予定日："+end+"<br>●使用目的："+purpose+"<br>●備考："+remarks+"<br><br>GHK"
   )
@@ -93,7 +93,7 @@ def send_new_email(kizai,name,start,end,purpose,remarks):
 #予約削除メール
 def send_del_email(kizai,name,start,end,purpose):
   msg = make_mime_text(
-    mail_to = send_address,
+    mail_to = st.secrets["send_address"],
     subject = "🔔【予約削除】"+kizai,
     body = "🔔予約削除通知<br><br>●機材名：kizai"+"<br>●名前："+name+"<br>●使用開始日："+start+"<br>●返却予定日："+end+"<br>●使用目的："+purpose+"<br><br>予約が削除されました。<br>確認👇👇<br>https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?usp=sharing"
   )
@@ -104,7 +104,7 @@ def make_mime_text(mail_to, subject, body):
   msg = MIMEText(body, "html")
   msg["Subject"] = subject
   msg["To"] = mail_to
-  msg["From"] = account
+  msg["From"] = st.secrets["account"]
   return msg
 
 # smtp経由でメール送信する関数
@@ -113,7 +113,7 @@ def send_gmail(msg):
     "smtp.gmail.com", 465,
     context = ssl.create_default_context())
   server.set_debuglevel(0)
-  server.login(account, password)
+  server.login(st.secrets["account"], st.secrets["password"])
   server.send_message(msg)
 
 
