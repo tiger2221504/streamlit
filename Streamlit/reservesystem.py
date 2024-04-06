@@ -5,6 +5,8 @@ import gspread
 from google.oauth2.service_account import Credentials
 import altair as alt
 #import streamlit_calendar as st_calendar
+import smtplib, ssl
+from email.mime.text import MIMEText
 
 # 2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = [
@@ -78,6 +80,43 @@ def date_bool(df,start,end):
   return False
 
 
+#メールを送信する関数
+#新規予約メール
+def send_new_email(kizai,name,start,end,purpose,remarks):
+  msg = make_mime_text(
+    mail_to = send_address,
+    subject = "🔔【新規予約】"+kizai,
+    body = "🔔予約完了通知<br><br>●機材名：kizai"+"<br>●名前："+name+"<br>●使用開始日："+start+"<br>●返却予定日："+end+"<br>●使用目的："+purpose+"<br>●備考："+remarks+"<br><br>GHK"
+  )
+  send_gmail(msg)
+
+#予約削除メール
+def send_del_email(kizai,name,start,end,purpose):
+  msg = make_mime_text(
+    mail_to = send_address,
+    subject = "🔔【予約削除】"+kizai,
+    body = "🔔予約削除通知<br><br>●機材名：kizai"+"<br>●名前："+name+"<br>●使用開始日："+start+"<br>●返却予定日："+end+"<br>●使用目的："+purpose+"<br><br>予約が削除されました。<br>確認👇👇<br>https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?usp=sharing"
+  )
+  send_gmail(msg)
+
+# 件名・送信先アドレス・本文を渡す関数
+def make_mime_text(mail_to, subject, body):
+  msg = MIMEText(body, "html")
+  msg["Subject"] = subject
+  msg["To"] = mail_to
+  msg["From"] = account
+  return msg
+
+# smtp経由でメール送信する関数
+def send_gmail(msg):
+  server = smtplib.SMTP_SSL(
+    "smtp.gmail.com", 465,
+    context = ssl.create_default_context())
+  server.set_debuglevel(0)
+  server.login(account, password)
+  server.send_message(msg)
+
+
 #ページコンフィグ
 st.set_page_config(
      page_title="機材予約システム",
@@ -140,6 +179,10 @@ with st.form("reserve_form", clear_on_submit=False):
         st.write('使用開始日：',start)
         st.write('返却予定日：',end)
         st.write('使用目的：',purpose)
+
+        #通知メール送信
+        send_new_email(kizai,name,str(start),str(end),purpose,remarks)
+        print("メール送信完了")
 
 exp = st.expander("🌟Tips", expanded=False)
 glink = '<a href="https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?usp=sharing" target="_blank">Googleスプレッドシート</a>'
@@ -216,6 +259,11 @@ with st.form("del_form", clear_on_submit=True):
         st.write('・使用目的：',del_purpose)
         st.write('続けて削除する場合は予約番号に注意してください。')
         st.write('(番号が更新されている可能性があります。)')
+
+        #メール送信
+        send_del_email(del_kizai,del_name,str(del_start),str(del_end),del_purpose)
+        print("メール送信完了")
+
     except Exception as e:
       st.markdown("**:red[エラー]**")
       st.write(e)
