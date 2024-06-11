@@ -276,9 +276,9 @@ with st.form("del_form", clear_on_submit=True):
             'purpose': del_purpose
          }
 
-# フォーム外で状態確認と新しいフォームを配置
-if 'del_info' in st.session_state:
-   del_info = st.session_state['del_info']
+   # フォーム外で状態確認と新しいフォームを配置
+   if 'del_info' in st.session_state:
+      del_info = st.session_state['del_info']
     
    # 新しいフォームの定義
    with st.form("undo_form", clear_on_submit=True):
