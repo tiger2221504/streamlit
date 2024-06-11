@@ -7,6 +7,7 @@ import altair as alt
 #import streamlit_calendar as st_calendar
 import smtplib, ssl
 from email.mime.text import MIMEText
+import hashlib
 
 # 2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = [
@@ -43,6 +44,10 @@ def write_worksheet(kizai,name,start,end,purpose,remarks):
   worksheet.update_cell(line+1,4,end)
   worksheet.update_cell(line+1,5,purpose)
   worksheet.update_cell(line+1,6,remarks)
+
+def hash_complex_object(obj):
+   # 独自のハッシュ化ロジックを定義
+   return hashlib.md5(str(obj).encode()).hexdigest()
 
 @st.cache(suppress_st_warning=True)
 def del_main(num,name,last_line):
