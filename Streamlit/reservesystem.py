@@ -134,7 +134,7 @@ st.set_page_config(
 
 
 #★★メンテナンス時にコメントアウトを外す★★
-st.title("**:red[メンテナンス中]**")
+#st.title("**:red[メンテナンス中]**")
 
 
 st.title('GHK 機材予約システム')
