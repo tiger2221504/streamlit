@@ -134,7 +134,7 @@ st.set_page_config(
 
 
 #★★メンテナンス時にコメントアウトを外す★★
-#st.title("**:red[メンテナンス中]**")
+st.title("**:red[メンテナンス中]**")
 
 
 st.title('GHK 機材予約システム')
@@ -248,6 +248,7 @@ with st.form("del_form", clear_on_submit=True):
         del_kizai = df.iat[num,0]
         del_name = df.iat[num,1]
         del_start = df.iat[num,2]
+        @st.cache
         del_end = df.iat[num,3]
         del_purpose = df.iat[num,4]
 
