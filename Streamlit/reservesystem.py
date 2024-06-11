@@ -45,9 +45,9 @@ def write_worksheet(kizai,name,start,end,purpose,remarks):
   worksheet.update_cell(line+1,6,remarks)
 
 
-def del_worksheet(num):
-  worksheet.delete_rows(num)
-
+def del_worksheet(line):
+  #worksheet.delete_rows(line)
+  worksheet.update_cell(line,4,"")
 
 def MakeDf(worksheet):
   df = pd.DataFrame(worksheet.get_all_records())
