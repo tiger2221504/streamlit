@@ -53,7 +53,7 @@ def hash_worksheet(worksheet):
     # worksheetの簡易ハッシュ化方法を定義（必要に応じてカスタマイズ）
     return hashlib.md5(str(worksheet).encode()).hexdigest()
 
-@st.cache(hash_funcs={pd.DataFrame: hash_df, YourWorksheetType: hash_worksheet}, suppress_st_warning=True)
+@st.cache(hash_funcs={pd.DataFrame: hash_df, gspread.models.Worksheet: hash_worksheet}, suppress_st_warning=True)
 def del_main(num,name,last_line):
    df = MakeDf(worksheet)
 
