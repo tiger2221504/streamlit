@@ -134,7 +134,7 @@ st.set_page_config(
 
 
 #★★メンテナンス時にコメントアウトを外す★★
-st.title("**:red[メンテナンス中]**")
+#st.title("**:red[メンテナンス中]**")
 
 
 st.title('GHK 機材予約システム')
@@ -244,50 +244,29 @@ with st.form("del_form", clear_on_submit=True):
         st.markdown("**:red[エラー]**")
         st.markdown(":red[(予約番号が入力されていません)]")
       else:
-         del_num = num
-         del_kizai = df.iat[num,0]
-         del_name = df.iat[num,1]
-         del_start = df.iat[num,2]
-         del_end = df.iat[num,3]
-         del_purpose = df.iat[num,4]
-         
-         del_worksheet(num+2)
-         
-         st.markdown("**:red[予約削除完了]**")
-         st.write('以下の予約を削除しました。')
-         st.write('・機材名：',del_kizai)
-         st.write('・名前：',del_name)
-         st.write('・使用開始日：',del_start)
-         st.write('・返却予定日：',del_end)
-         st.write('・使用目的：',del_purpose)
-         st.write('続けて削除する場合は予約番号に注意してください。')
-         st.write('(番号が更新されている可能性があります。)')
-         #メール送信
-         send_del_email(del_kizai,del_name,str(del_start),str(del_end),del_purpose)
-         print("メール送信完了")
-         
-         # セッション状態に削除情報を保存
-         st.session_state['del_info'] = {
-            'num': del_num,
-            'kizai': del_kizai,
-            'name': del_name,
-            'start': del_start,
-            'end': del_end,
-            'purpose': del_purpose
-         }
+        del_num = num
+        del_kizai = df.iat[num,0]
+        del_name = df.iat[num,1]
+        del_start = df.iat[num,2]
+        del_end = df.iat[num,3]
+        del_purpose = df.iat[num,4]
 
-   # フォーム外で状態確認と新しいフォームを配置
-   if 'del_info' in st.session_state:
-      del_info = st.session_state['del_info']
-    
-   # 新しいフォームの定義
-   with st.form("undo_form", clear_on_submit=True):
-      submitted3 = st.form_submit_button("削除取り消し(最後のチャンス)")
+        del_worksheet(num+2)
 
-      if submitted3:
-         # 削除取り消しのロジックをここに追加
-         st.write("削除取り消し")
+        st.markdown("**:red[予約削除完了]**")
+        st.write('以下の予約を削除しました。')
+        st.write('・機材名：',del_kizai)
+        st.write('・名前：',del_name)
+        st.write('・使用開始日：',del_start)
+        st.write('・返却予定日：',del_end)
+        st.write('・使用目的：',del_purpose)
+        st.write('続けて削除する場合は予約番号に注意してください。')
+        st.write('(番号が更新されている可能性があります。)')
 
-      # except Exception as e:
-      #    st.markdown("**:red[エラー]**")
-      #    st.write(e)
+        #メール送信
+        send_del_email(del_kizai,del_name,str(del_start),str(del_end),del_purpose)
+        print("メール送信完了")
+
+    except Exception as e:
+      st.markdown("**:red[エラー]**")
+      st.write(e)
