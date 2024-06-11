@@ -280,14 +280,14 @@ with st.form("del_form", clear_on_submit=True):
 if 'del_info' in st.session_state:
    del_info = st.session_state['del_info']
     
-   # 新しいフォームの定義
-   with st.form("undo_form", clear_on_submit=True):
-      submitted3 = st.form_submit_button("削除取り消し(最後のチャンス)")
+# 新しいフォームの定義
+with st.form("undo_form", clear_on_submit=True):
+   submitted3 = st.form_submit_button("削除取り消し(最後のチャンス)")
 
-      if submitted3:
-         # 削除取り消しのロジックをここに追加
-         st.write("削除取り消し")
-         st.write(del_info)
+   if submitted3:
+      # 削除取り消しのロジックをここに追加
+      st.write("削除取り消し")
+      st.write(del_info)
 
       # except Exception as e:
       #    st.markdown("**:red[エラー]**")
