@@ -264,7 +264,7 @@ with st.form("del_form", clear_on_submit=True):
         st.write('(番号が更新されている可能性があります。)')
         submitted3 = st.form_submit_button("削除取り消し(最後のチャンス)")
         if submitted3:
-          worksheet.update_cell(num+2,4,del_end)
+          #worksheet.update_cell(num+2,4,del_end)
           print("削除取り消し")
 
         #メール送信
