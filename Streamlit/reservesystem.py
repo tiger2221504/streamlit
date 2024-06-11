@@ -7,7 +7,6 @@ import altair as alt
 #import streamlit_calendar as st_calendar
 import smtplib, ssl
 from email.mime.text import MIMEText
-import hashlib
 
 # 2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = [
@@ -44,59 +43,6 @@ def write_worksheet(kizai,name,start,end,purpose,remarks):
   worksheet.update_cell(line+1,4,end)
   worksheet.update_cell(line+1,5,purpose)
   worksheet.update_cell(line+1,6,remarks)
-
-def hash_df(df):
-    # データフレームのハッシュ化方法を定義
-    return hashlib.md5(pd.util.hash_pandas_object(df, index=True).values).hexdigest()
-
-def hash_worksheet(worksheet):
-    # worksheetの簡易ハッシュ化方法を定義（必要に応じてカスタマイズ）
-    return hashlib.md5(str(worksheet).encode()).hexdigest()
-
-@st.cache(hash_funcs={pd.DataFrame: hash_df, gspread.models.Worksheet: hash_worksheet}, suppress_st_warning=True)
-def del_main(num,name,last_line):
-   df = MakeDf(worksheet)
-
-   try:
-      if last_line < num or num < 0:
-         st.markdown("**:red[エラー]**")
-         st.markdown(":red[(指定した予約は存在しません)]")
-      elif name != df.iat[num,1]:
-         st.markdown("**:red[エラー]**")
-         st.markdown(":red[(予約番号と使用者名が一致しません)]")
-      elif num == "":
-         st.markdown("**:red[エラー]**")
-         st.markdown(":red[(予約番号が入力されていません)]")
-      else:
-         del_num = num
-         del_kizai = df.iat[num,0]
-         del_name = df.iat[num,1]
-         del_start = df.iat[num,2]
-         del_end = df.iat[num,3]
-         del_purpose = df.iat[num,4]
-
-         del_worksheet(num+2)
-
-         st.markdown("**:red[予約削除完了]**")
-         st.write('以下の予約を削除しました。')
-         st.write('・機材名：',del_kizai)
-         st.write('・名前：',del_name)
-         st.write('・使用開始日：',del_start)
-         st.write('・返却予定日：',del_end)
-         st.write('・使用目的：',del_purpose)
-         st.write('続けて削除する場合は予約番号に注意してください。')
-         st.write('(番号が更新されている可能性があります。)')
-         submitted3 = st.form_submit_button("削除取り消し(最後のチャンス)")
-         if submitted3:
-            worksheet.update_cell(num+2,4,del_end)
-            print("削除取り消し")
-         #メール送信
-         send_del_email(del_kizai,del_name,str(del_start),str(del_end),del_purpose)
-         print("メール送信完了")
-   
-   except Exception as e:
-      st.markdown("**:red[エラー]**")
-      st.write(e)
 
 
 def del_worksheet(line):
@@ -285,4 +231,46 @@ with st.form("del_form", clear_on_submit=True):
       submitted2=True
 
   if submitted2:
-     del_main(num,name,last_line)
+    df = MakeDf(worksheet)
+
+    try:
+      if last_line < num or num < 0:
+        st.markdown("**:red[エラー]**")
+        st.markdown(":red[(指定した予約は存在しません)]")
+      elif name != df.iat[num,1]:
+        st.markdown("**:red[エラー]**")
+        st.markdown(":red[(予約番号と使用者名が一致しません)]")
+      elif num == "":
+        st.markdown("**:red[エラー]**")
+        st.markdown(":red[(予約番号が入力されていません)]")
+      else:
+        del_num = num
+        del_kizai = df.iat[num,0]
+        del_name = df.iat[num,1]
+        del_start = df.iat[num,2]
+        del_end = df.iat[num,3]
+        del_purpose = df.iat[num,4]
+
+        del_worksheet(num+2)
+
+        st.markdown("**:red[予約削除完了]**")
+        st.write('以下の予約を削除しました。')
+        st.write('・機材名：',del_kizai)
+        st.write('・名前：',del_name)
+        st.write('・使用開始日：',del_start)
+        st.write('・返却予定日：',del_end)
+        st.write('・使用目的：',del_purpose)
+        st.write('続けて削除する場合は予約番号に注意してください。')
+        st.write('(番号が更新されている可能性があります。)')
+        submitted3 = st.form_submit_button("削除取り消し(最後のチャンス)")
+        if submitted3:
+          worksheet.update_cell(num+2,4,del_end)
+          print("削除取り消し")
+
+        #メール送信
+        send_del_email(del_kizai,del_name,str(del_start),str(del_end),del_purpose)
+        print("メール送信完了")
+
+    except Exception as e:
+      st.markdown("**:red[エラー]**")
+      st.write(e)
