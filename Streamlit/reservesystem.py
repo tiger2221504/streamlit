@@ -268,12 +268,12 @@ with st.form("del_form", clear_on_submit=True):
          
          # セッション状態に削除情報を保存
          st.session_state['del_info'] = {
-               'num': del_num,
-               'kizai': del_kizai,
-               'name': del_name,
-               'start': del_start,
-               'end': del_end,
-               'purpose': del_purpose
+            'num': del_num,
+            'kizai': del_kizai,
+            'name': del_name,
+            'start': del_start,
+            'end': del_end,
+            'purpose': del_purpose
          }
 
 # フォーム外で状態確認と新しいフォームを配置
