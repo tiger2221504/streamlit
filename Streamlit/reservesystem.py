@@ -8,6 +8,8 @@ import altair as alt
 import smtplib, ssl
 from email.mime.text import MIMEText
 
+st.title("**:red[メンテナンス中]**")
+
 # 2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = [
    'https://www.googleapis.com/auth/spreadsheets',
