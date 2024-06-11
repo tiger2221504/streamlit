@@ -275,9 +275,9 @@ with st.form("del_form", clear_on_submit=True):
                'end': del_end,
                'purpose': del_purpose
          }
-   except Exception as e:
-      st.markdown("**:red[エラー]**")
-      st.write(e)
+   # except Exception as e:
+   #    st.markdown("**:red[エラー]**")
+   #    st.write(e)
 
 # フォーム外で状態確認と新しいフォームを配置
 if 'del_info' in st.session_state:
