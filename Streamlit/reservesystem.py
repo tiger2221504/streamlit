@@ -47,7 +47,7 @@ def write_worksheet(kizai,name,start,end,purpose,remarks):
 
 def del_worksheet(line):
   #worksheet.delete_rows(line)
-  worksheet.update_cell(line,4,"")
+  worksheet.update_cell(line,4,"削除")
 
 def MakeDf(worksheet):
   df = pd.DataFrame(worksheet.get_all_records())
@@ -127,7 +127,7 @@ st.set_page_config(
          'About': """
          # GHK機材予約システム
          機材を予約できます。機材の管理については技術課まで。
-         @ 2023 GHK
+         @ 2024 GHK
          """
      }
  )
@@ -262,6 +262,9 @@ with st.form("del_form", clear_on_submit=True):
         st.write('・使用目的：',del_purpose)
         st.write('続けて削除する場合は予約番号に注意してください。')
         st.write('(番号が更新されている可能性があります。)')
+        submitted3 = st.form_submit_button("削除取り消し(最後のチャンス)")
+        if(submitted3):
+           worksheet.update_cell(num+2,4,del_end)
 
         #メール送信
         send_del_email(del_kizai,del_name,str(del_start),str(del_end),del_purpose)
