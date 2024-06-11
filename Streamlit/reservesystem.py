@@ -44,7 +44,7 @@ def write_worksheet(kizai,name,start,end,purpose,remarks):
   worksheet.update_cell(line+1,5,purpose)
   worksheet.update_cell(line+1,6,remarks)
 
-@st.cache
+@st.cache(suppress_st_warning=True)
 def del_main(num,name,last_line):
    df = MakeDf(worksheet)
 
