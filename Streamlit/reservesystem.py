@@ -244,15 +244,15 @@ with st.form("del_form", clear_on_submit=True):
         st.markdown("**:red[エラー]**")
         st.markdown(":red[(予約番号が入力されていません)]")
       else:
-        del_num = num
-        del_kizai = df.iat[num,0]
-        del_name = df.iat[num,1]
-        del_start = df.iat[num,2]
-        del_end = df.iat[num,3]
-        del_purpose = df.iat[num,4]
-
-        del_worksheet(num+2)
-
+         del_num = num
+         del_kizai = df.iat[num,0]
+         del_name = df.iat[num,1]
+         del_start = df.iat[num,2]
+         del_end = df.iat[num,3]
+         del_purpose = df.iat[num,4]
+         
+         del_worksheet(num+2)
+         
          st.markdown("**:red[予約削除完了]**")
          st.write('以下の予約を削除しました。')
          st.write('・機材名：',del_kizai)
