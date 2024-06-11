@@ -253,23 +253,23 @@ with st.form("del_form", clear_on_submit=True):
 
         del_worksheet(num+2)
 
-        st.markdown("**:red[予約削除完了]**")
-        st.write('以下の予約を削除しました。')
-        st.write('・機材名：',del_kizai)
-        st.write('・名前：',del_name)
-        st.write('・使用開始日：',del_start)
-        st.write('・返却予定日：',del_end)
-        st.write('・使用目的：',del_purpose)
-        st.write('続けて削除する場合は予約番号に注意してください。')
-        st.write('(番号が更新されている可能性があります。)')
-
+         st.markdown("**:red[予約削除完了]**")
+         st.write('以下の予約を削除しました。')
+         st.write('・機材名：',del_kizai)
+         st.write('・名前：',del_name)
+         st.write('・使用開始日：',del_start)
+         st.write('・返却予定日：',del_end)
+         st.write('・使用目的：',del_purpose)
+         st.write('続けて削除する場合は予約番号に注意してください。')
+         st.write('(番号が更新されている可能性があります。)')
+         
          st.session_state['del_info'] = {
-                    'num': del_num,
-                    'kizai': del_kizai,
-                    'name': del_name,
-                    'start': del_start,
-                    'end': del_end,
-                    'purpose': del_purpose
+            'num': del_num,
+            'kizai': del_kizai,
+            'name': del_name,
+            'start': del_start,
+            'end': del_end,
+            'purpose': del_purpose
          }
 
 if 'del_info' in st.session_state:
