@@ -277,8 +277,8 @@ with st.form("del_form", clear_on_submit=True):
          }
 
 # フォーム外で状態確認と新しいフォームを配置
-   if 'del_info' in st.session_state:
-      del_info = st.session_state['del_info']
+if 'del_info' in st.session_state:
+   del_info = st.session_state['del_info']
     
    # 新しいフォームの定義
    with st.form("undo_form", clear_on_submit=True):
@@ -289,6 +289,6 @@ with st.form("del_form", clear_on_submit=True):
          st.write("削除取り消し")
          st.write(del_info)
 
-      except Exception as e:
-         st.markdown("**:red[エラー]**")
-         st.write(e)
+      # except Exception as e:
+      #    st.markdown("**:red[エラー]**")
+      #    st.write(e)
