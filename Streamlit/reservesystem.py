@@ -45,11 +45,15 @@ def write_worksheet(kizai,name,start,end,purpose,remarks):
   worksheet.update_cell(line+1,5,purpose)
   worksheet.update_cell(line+1,6,remarks)
 
-def hash_complex_object(obj):
-   # 独自のハッシュ化ロジックを定義
-   return hashlib.md5(str(obj).encode()).hexdigest()
+def hash_df(df):
+    # データフレームのハッシュ化方法を定義
+    return hashlib.md5(pd.util.hash_pandas_object(df, index=True).values).hexdigest()
 
-@st.cache(suppress_st_warning=True)
+def hash_worksheet(worksheet):
+    # worksheetの簡易ハッシュ化方法を定義（必要に応じてカスタマイズ）
+    return hashlib.md5(str(worksheet).encode()).hexdigest()
+
+@st.cache(hash_funcs={pd.DataFrame: hash_df, YourWorksheetType: hash_worksheet}, suppress_st_warning=True)
 def del_main(num,name,last_line):
    df = MakeDf(worksheet)
 
