@@ -262,29 +262,32 @@ with st.form("del_form", clear_on_submit=True):
          st.write('・使用目的：',del_purpose)
          st.write('続けて削除する場合は予約番号に注意してください。')
          st.write('(番号が更新されている可能性があります。)')
+         #メール送信
+         send_del_email(del_kizai,del_name,str(del_start),str(del_end),del_purpose)
+         print("メール送信完了")
          
+         # セッション状態に削除情報を保存
          st.session_state['del_info'] = {
-            'num': del_num,
-            'kizai': del_kizai,
-            'name': del_name,
-            'start': del_start,
-            'end': del_end,
-            'purpose': del_purpose
+               'num': del_num,
+               'kizai': del_kizai,
+               'name': del_name,
+               'start': del_start,
+               'end': del_end,
+               'purpose': del_purpose
          }
-
-if 'del_info' in st.session_state:
-   del_info = st.session_state['del_info']
-   with st.form("undo_form", clear_on_submit=True):
-      submitted3 = st.form_submit_button("削除取り消し(最後のチャンス)")
-      
-      if submitted3:
-         worksheet.update_cell(num+2,4,del_end)
-         print("削除取り消し")
-
-        #メール送信
-        send_del_email(del_kizai,del_name,str(del_start),str(del_end),del_purpose)
-        print("メール送信完了")
-
-    except Exception as e:
+   except Exception as e:
       st.markdown("**:red[エラー]**")
       st.write(e)
+
+# フォーム外で状態確認と新しいフォームを配置
+if 'del_info' in st.session_state:
+    del_info = st.session_state['del_info']
+    
+    # 新しいフォームの定義
+    with st.form("undo_form", clear_on_submit=True):
+        submitted3 = st.form_submit_button("削除取り消し(最後のチャンス)")
+
+        if submitted3:
+            # 削除取り消しのロジックをここに追加
+            st.write("削除取り消し")
+            st.write(del_info)
