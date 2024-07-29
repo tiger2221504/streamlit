@@ -202,7 +202,7 @@ stock = st.radio(label='■表示順', options=('予約番号', '使用開始日
 if st.button(label='予約リストを表示(更新)'):
   viewdf = MakeDf(worksheet)
   viewdf = viewdf[viewdf["機材名"].isin(select_kizai) & (pd.to_datetime(viewdf["返却予定日"])>datetime.datetime.today()+datetime.timedelta(days=-1))]
-  viewdf = viewdf.drop(columns='カレンダー','予約ID')
+  viewdf = viewdf.drop(columns={'カレンダー','予約ID'})
 
   if stock == "予約番号":
     viewdf = viewdf.sort_index()
@@ -218,9 +218,6 @@ if st.button(label='予約リストを表示(更新)'):
 
 calendar = '<a href="https://calendar.google.com/calendar/embed?src=b2a380f349198cf89751d3efa30f8728b23e29de667b5cb0cad1e780f7b220b8%40group.calendar.google.com&ctz=Asia%2FTokyo" target="_blank">予約カレンダー📅</a>'
 st.markdown(calendar, unsafe_allow_html=True)
-st.write("")
-
-st.write("")
 
 st.write('''##''')
 
