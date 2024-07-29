@@ -202,6 +202,7 @@ stock = st.radio(label='■表示順', options=('予約番号', '使用開始日
 if st.button(label='予約リストを表示(更新)'):
   viewdf = MakeDf(worksheet)
   viewdf = viewdf[viewdf["機材名"].isin(select_kizai) & (pd.to_datetime(viewdf["返却予定日"])>datetime.datetime.today()+datetime.timedelta(days=-1))]
+  viewdf = viewdf.drop(columns='予約ID')
 
   if stock == "予約番号":
     viewdf = viewdf.sort_index()
