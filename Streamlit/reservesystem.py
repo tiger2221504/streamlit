@@ -123,11 +123,11 @@ st.set_page_config(
      page_icon="📹",
      initial_sidebar_state="collapsed",
      menu_items={
-         'Get help': "https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?usp=sharing",
+         'Get help': "https://drive.google.com/file/d/1_opa9G1174gYz0dc0H3JVpJIUTaqvWZQ/view?usp=sharing",
          'About': """
          # GHK機材予約システム
          機材を予約できます。機材の管理については技術課まで。
-         @ 2023 GHK
+         @ 2024 GHK
          """
      }
  )
