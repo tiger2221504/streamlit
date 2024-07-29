@@ -215,6 +215,11 @@ if st.button(label='予約リストを表示(更新)'):
 
   st.table(viewdf)
 
+calendar = '<a href="https://calendar.google.com/calendar/embed?src=b2a380f349198cf89751d3efa30f8728b23e29de667b5cb0cad1e780f7b220b8%40group.calendar.google.com&ctz=Asia%2FTokyo" target="_blank">予約カレンダー📅</a>'
+st.markdown(calendar, unsafe_allow_html=True)
+
+st.write("")
+
 st.write('''##''')
 
 st.write('''## ●予約削除''')
