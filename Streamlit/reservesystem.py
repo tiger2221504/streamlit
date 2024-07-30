@@ -194,10 +194,9 @@ with st.form("reserve_form", clear_on_submit=False):
         print("メール送信完了")
 
 exp = st.expander("🌟Tips", expanded=False)
-glink = '<a href="https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?usp=sharing" target="_blank">Googleスプレッドシート</a>'
+glink = '<a href="https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?gid=1580396357#gid=1580396357" target="_blank">Googleスプレッドシート</a>'
 exp.markdown(glink, unsafe_allow_html=True)
-exp.write("スプレッドシートから直接編集も可能です。")
-exp.write("機材リストの編集もこちらから。")
+exp.write("機材リストの編集はこちらから。")
 
 st.write('''##''')
 
@@ -270,8 +269,6 @@ with st.form("del_form", clear_on_submit=True):
         st.write('・使用開始日：',del_start)
         st.write('・返却予定日：',del_end)
         st.write('・使用目的：',del_purpose)
-        st.write('続けて削除する場合は予約番号に注意してください。')
-        st.write('(番号が更新されている可能性があります。)')
 
         #メール送信
         send_del_email(del_kizai,del_name,str(del_start),str(del_end),del_purpose)
