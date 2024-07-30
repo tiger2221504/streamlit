@@ -72,16 +72,16 @@ def date_bool(df,start,end):
    if kizai=="その他(備考に記載)":
       return False
    for i in range(len(df)):
-   if df.iat[i,0]==kizai:
-      if (pd.to_datetime(df.iat[i,2])<=pd.to_datetime(start)) & (pd.to_datetime(df.iat[i,3])>=pd.to_datetime(start)):
-        return True
-      if (pd.to_datetime(df.iat[i,2])<=pd.to_datetime(end)) & (pd.to_datetime(df.iat[i,3])>=pd.to_datetime(end)):
-        return True
-      if (pd.to_datetime(df.iat[i,2])>=pd.to_datetime(start)) & (pd.to_datetime(df.iat[i,3])<=pd.to_datetime(end)):
-        return True
-    continue
+      if df.iat[i,0]==kizai:
+         if (pd.to_datetime(df.iat[i,2])<=pd.to_datetime(start)) & (pd.to_datetime(df.iat[i,3])>=pd.to_datetime(start)):
+           return True
+         if (pd.to_datetime(df.iat[i,2])<=pd.to_datetime(end)) & (pd.to_datetime(df.iat[i,3])>=pd.to_datetime(end)):
+           return True
+         if (pd.to_datetime(df.iat[i,2])>=pd.to_datetime(start)) & (pd.to_datetime(df.iat[i,3])<=pd.to_datetime(end)):
+           return True
+       continue
           
-  return False
+   return False
 
 
 #メールを送信する関数
