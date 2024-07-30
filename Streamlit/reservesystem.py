@@ -172,6 +172,8 @@ with st.form("reserve_form", clear_on_submit=False):
         st.markdown("**:red[エラー]**")
         st.markdown(":red[同じ機材で日付の重なった予約が既に存在します。]")
       else:
+        if remarks=="":
+           remarks="-"
         #スプレッドシートに追加する
         write_worksheet(kizai,name,str(start),str(end),purpose,remarks)
         
