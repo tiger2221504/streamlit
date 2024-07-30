@@ -64,8 +64,8 @@ def reserve_bool(df,kizai,name,start,end):
           if df.iat[i,3]==end:
             return True
     continue
-          
-  return False
+      
+   return False
 
 
 def date_bool(df,start,end):
