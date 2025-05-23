@@ -183,7 +183,7 @@ with st.form("reserve_form", clear_on_submit=False):
       submitted=True
 
    if submitted1:
-      df = (worksheet)
+      df = MakeDf(worksheet)
       if start > end :
          st.markdown("**:red[エラー]**")
          st.markdown(":red[(返却予定日は使用開始日より前に設定できません。)]")
@@ -306,9 +306,6 @@ with st.form("del_form", clear_on_submit=True):
        elif name != df.iat[num,1]:
          st.markdown("**:red[エラー]**")
          st.markdown(":red[(予約番号と使用者名が一致しません)]")
-       elif num == "":
-         st.markdown("**:red[エラー]**")
-         st.markdown(":red[(予約番号が入力されていません)]")
        else:
          del_num = num
          del_kizai = df.iat[num,0]
