@@ -30,7 +30,6 @@ worksheet = workbook.worksheet('sheet1')
 #機材リスト
 kizai_sheet = workbook.worksheet('list')
 kizai_df = pd.DataFrame(kizai_sheet.get_all_records())
-kizai_df.columns = kizai_df.columns.str.replace('"', '', regex=False).str.strip()
 kizai_list = kizai_df["機材名"].tolist()
 if "その他(備考に記載)" not in kizai_list:
    kizai_list.append("その他(備考に記載)")
@@ -152,9 +151,6 @@ st.set_page_config(
 #★★メンテナンス時にコメントアウトを外す★★
 #st.title("**:red[メンテナンス中]**")
 
-# ★後で消す
-st.write("kizai_df の列名一覧:", kizai_df.columns.tolist())
-st.write("kizai_df の中身:", kizai_df.head())
 
 st.title('GHK 機材予約システム')
 
@@ -220,7 +216,7 @@ st.write("機材リストの編集はこちらから。")
 st.write('''##''')
 
 st.write('''## ●予約リスト''')
-select_kizai = st.multiselect("■カテゴリで絞り込み", options=tag_list, default=tag_list,placeholder="閲覧するカテゴリを選んでください(複数選択)")
+select_tags = st.multiselect("■カテゴリで絞り込み", options=tag_list, default=tag_list,placeholder="閲覧するカテゴリを選んでください(複数選択)")
 stock = st.radio(label='■表示順', options=('予約番号', '使用開始日', '返却予定日'), index=0, horizontal=True,)
 
 if st.button(label='予約リストを表示(更新)'):
