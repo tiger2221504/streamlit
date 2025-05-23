@@ -163,7 +163,7 @@ with st.form("reserve_form", clear_on_submit=False):
    selected_tag = st.selectbox('*カテゴリ', tag_list)
    if selected_tag == "その他(備考に記載)":
       kizai = "その他(備考に記載)"
-       st.info("※使用機材も「その他(備考に記載)」として登録されます。備考欄に機材名を必ず記入してください。")
+      st.info("※使用機材も「その他(備考に記載)」として登録されます。備考欄に機材名を必ず記入してください。")
    else:
       filtered_kizai_list = kizai_df[kizai_df["タグ"] == selected_tag]["機材名"].tolist()
       kizai = st.selectbox('*使用機材', filtered_kizai_list)
