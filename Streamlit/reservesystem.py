@@ -160,37 +160,46 @@ st.write("")
 
 st.write('''## ●新規予約''')
 with st.form("reserve_form", clear_on_submit=False):
-    kizai = st.selectbox('*使用機材',kizai_list)
-    name = st.text_input('*使用者名')
-    start = st.date_input('*使用開始日:', datetime.datetime.today(),min_value=datetime.datetime.today())
-    end = st.date_input('*返却予定日:', datetime.datetime.today(),min_value=datetime.datetime.today())
-    purpose = st.text_input('*使用目的')
-    remarks = st.text_input('備考')
-    submitted1 = st.form_submit_button("予約追加")
+   selected_tag = st.selectbox('*カテゴリ', tag_list)
+   if selected_tag == "その他(備考に記載)":
+      kizai = "その他(備考に記載)"
+       st.info("※使用機材も「その他(備考に記載)」として登録されます。備考欄に機材名を必ず記入してください。")
+   else:
+      filtered_kizai_list = kizai_df[kizai_df["タグ"] == selected_tag]["機材名"].tolist()
+      kizai = st.selectbox('*使用機材', filtered_kizai_list)
+   name = st.text_input('*使用者名')
+   start = st.date_input('*使用開始日:', datetime.datetime.today(),min_value=datetime.datetime.today())
+   end = st.date_input('*返却予定日:', datetime.datetime.today(),min_value=datetime.datetime.today())
+   purpose = st.text_input('*使用目的')
+   remarks = st.text_input('備考')
+   submitted1 = st.form_submit_button("予約追加")
 
-    if 'reserve_form' in st.session_state:
-        submitted=True
+   if 'reserve_form' in st.session_state:
+      submitted=True
 
-    if submitted1:
+   if submitted1:
       df = MakeDf(worksheet)
       if start > end :
-        st.markdown("**:red[エラー]**")
-        st.markdown(":red[(返却予定日は使用開始日より前に設定できません。)]")
+         st.markdown("**:red[エラー]**")
+         st.markdown(":red[(返却予定日は使用開始日より前に設定できません。)]")
       elif name == "" or purpose == "" :
-        st.markdown("**:red[エラー]**")
-        st.markdown(":red[(入力されていない必須項目があります。)]")
+         st.markdown("**:red[エラー]**")
+         st.markdown(":red[(入力されていない必須項目があります。)]")
       elif reserve_bool(df,kizai,name,str(start),str(end)):
-        st.markdown("**:red[エラー]**")
-        st.markdown(":red[重複した予約が既に存在します。]")
-        st.markdown(":red[編集したい場合は一度削除してください。]")
+         st.markdown("**:red[エラー]**")
+         st.markdown(":red[重複した予約が既に存在します。]")
+         st.markdown(":red[編集したい場合は一度削除してください。]")
       elif date_bool(df,start,end):
-        st.markdown("**:red[エラー]**")
-        st.markdown(":red[同じ機材で日付の重なった予約が既に存在します。]")
+         st.markdown("**:red[エラー]**")
+         st.markdown(":red[同じ機材で日付の重なった予約が既に存在します。]")
+      elif selected_tag == "その他(備考に記載)" and remarks.strip() in ["", "-"]:
+         st.markdown("**:red[エラー]**")
+         st.markdown(":red[「その他(備考に記載)」を選んだ場合は、備考欄に機材名を必ず記入してください。]")
       else:
-        if remarks=="":
-           remarks="-"
-        #スプレッドシートに追加する
-        write_worksheet(kizai,name,str(start),str(end),purpose,remarks)
+         if remarks=="":
+            remarks="-"
+         #スプレッドシートに追加する
+         write_worksheet(kizai,name,str(start),str(end),purpose,remarks)
         
         #詳細のプリント
         st.markdown("**:red[予約完了]**")
@@ -199,7 +208,7 @@ with st.form("reserve_form", clear_on_submit=False):
         st.write('使用開始日：',start)
         st.write('返却予定日：',end)
         st.write('使用目的：',purpose)
-
+      
         #通知メール送信
         send_new_email(kizai,name,str(start),str(end),purpose,remarks)
         print("メール送信完了")
