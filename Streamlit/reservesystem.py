@@ -4,7 +4,6 @@ import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 import altair as alt
-#import streamlit_calendar as st_calendar
 import smtplib, ssl
 from email.mime.text import MIMEText
 
@@ -193,10 +192,14 @@ with st.form("reserve_form", clear_on_submit=False):
         send_new_email(kizai,name,str(start),str(end),purpose,remarks)
         print("メール送信完了")
 
-exp = st.expander("🌟Tips", expanded=False)
+# exp = st.expander("🌟Tips", expanded=False)
+# glink = '<a href="https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?gid=1580396357#gid=1580396357" target="_blank">Googleスプレッドシート</a>'
+# exp.markdown(glink, unsafe_allow_html=True)
+# exp.write("機材リストの編集はこちらから。")
+
 glink = '<a href="https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?gid=1580396357#gid=1580396357" target="_blank">Googleスプレッドシート</a>'
-exp.markdown(glink, unsafe_allow_html=True)
-exp.write("機材リストの編集はこちらから。")
+st.markdown(glink, unsafe_allow_html=True)
+st.write("機材リストの編集はこちらから。")
 
 st.write('''##''')
 
