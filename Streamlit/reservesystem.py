@@ -28,6 +28,15 @@ worksheet = workbook.worksheet('sheet1')
 kizai_sheet = workbook.worksheet('list')
 kizai_df = pd.DataFrame(kizai_sheet.get_all_records())
 kizai_list = kizai_df["機材名"].tolist()
+if "その他(備考に記載)" not in kizai_list:
+   kizai_list.append("その他(備考に記載)")
+
+# タグ(カテゴリ)リスト
+tag_sheet = workbook.worksheet('tag')
+tag_df = pd.DataFrame(tag_sheet.get_all_records())
+tag_list = sorted(tag_df["タグ"].dropna().unique().tolist())
+if "その他(備考に記載)" not in tag_list:
+   tag_list.append("その他(備考に記載)")
 
 
 def write_worksheet(kizai,name,start,end,purpose,remarks):
@@ -204,12 +213,18 @@ st.write("機材リストの編集はこちらから。")
 st.write('''##''')
 
 st.write('''## ●予約リスト''')
-select_kizai = st.multiselect("■機材名で絞り込み", options=kizai_list, default=kizai_list,placeholder="機材を選んでください")
+select_kizai = st.multiselect("■カテゴリで絞り込み", options=tag_list, default=tag_list,placeholder="閲覧するカテゴリを選んでください(複数選択)")
 stock = st.radio(label='■表示順', options=('予約番号', '使用開始日', '返却予定日'), index=0, horizontal=True,)
 
 if st.button(label='予約リストを表示(更新)'):
-  viewdf = MakeDf(worksheet)
-  viewdf = viewdf[viewdf["機材名"].isin(select_kizai) & (pd.to_datetime(viewdf["返却予定日"])>datetime.datetime.today()+datetime.timedelta(days=-1))]
+   viewdf = MakeDf(worksheet)
+   # カテゴリに対応する機材を抽出
+   tag_to_kizai = kizai_df[kizai_df["タグ"].isin(select_tags)]["機材名"].tolist()
+   # 絞り込み：タグに対応する機材名かつ返却日が今日以降
+   viewdf = viewdf[
+      viewdf["機材名"].isin(tag_to_kizai) &
+      (pd.to_datetime(viewdf["返却予定日"]) > datetime.datetime.today() + datetime.timedelta(days=-1))
+   ]
   viewdf = viewdf.drop(columns={'カレンダー','予約ID'})
 
   if stock == "予約番号":
