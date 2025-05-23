@@ -34,7 +34,7 @@ if "その他(備考に記載)" not in kizai_list:
 # タグ(カテゴリ)リスト
 tag_sheet = workbook.worksheet('tag')
 tag_df = pd.DataFrame(tag_sheet.get_all_records())
-tag_list = sorted(tag_df["タグ"].dropna().unique().tolist())
+tag_list = sorted(tag_df["タグ一覧"].dropna().unique().tolist())
 if "その他(備考に記載)" not in tag_list:
    tag_list.append("その他(備考に記載)")
 
