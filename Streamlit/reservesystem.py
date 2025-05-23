@@ -38,6 +38,10 @@ tag_list = sorted(tag_df["タグ一覧"].dropna().unique().tolist())
 if "その他(備考に記載)" not in tag_list:
    tag_list.append("その他(備考に記載)")
 
+# ★後で消す
+st.write("kizai_df の列名一覧:", kizai_df.columns.tolist())
+st.write("kizai_df の中身:", kizai_df.head())
+
 
 def write_worksheet(kizai,name,start,end,purpose,remarks):
   #最終行の取得
