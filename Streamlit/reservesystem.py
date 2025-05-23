@@ -298,7 +298,7 @@ with st.form("del_form", clear_on_submit=True):
          st.write(e)
          st.stop()
 
-     try:
+      try:
        if last_line < num or num < 0:
          st.markdown("**:red[エラー]**")
          st.markdown(":red[(指定した予約は存在しません)]")
