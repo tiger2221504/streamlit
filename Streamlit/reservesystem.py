@@ -6,6 +6,7 @@ from google.oauth2.service_account import Credentials
 import altair as alt
 import smtplib, ssl
 from email.mime.text import MIMEText
+from gspread.exceptions import APIError
 
 # 2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = [
