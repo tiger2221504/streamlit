@@ -223,10 +223,6 @@ if st.button(label='予約リストを表示(更新)'):
    viewdf = MakeDf(worksheet)
    # カテゴリに対応する機材を抽出
    tag_to_kizai = kizai_df[kizai_df["タグ"].isin(select_tags)]["機材名"].tolist()
-
-   # ★後で消す
-   st.write("🎯 選択されたタグ:", select_tags)
-   st.write("🧾 タグに該当する機材:", tag_to_kizai)
    
    # 絞り込み：タグに対応する機材名かつ返却日が今日以降
    viewdf = viewdf[
