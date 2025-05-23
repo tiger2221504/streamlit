@@ -61,7 +61,7 @@ def del_worksheet(line):
   #worksheet.delete_rows(line)
   worksheet.update_cell(line,4,"")
 
-@st.cache_data(ttl=300)
+@st.cache_data(ttl=30)
 def MakeDf(_worksheet):
   df = pd.DataFrame(worksheet.get_all_records())
   return df
@@ -183,7 +183,7 @@ with st.form("reserve_form", clear_on_submit=False):
       submitted=True
 
    if submitted1:
-      df = MakeDf(worksheet)
+      df = (worksheet)
       if start > end :
          st.markdown("**:red[エラー]**")
          st.markdown(":red[(返却予定日は使用開始日より前に設定できません。)]")
@@ -248,6 +248,8 @@ if st.button(label='予約リストを表示(更新)'):
          
    # カテゴリに対応する機材を抽出
    tag_to_kizai = kizai_df[kizai_df["タグ"].isin(select_tags)]["機材名"].tolist()
+   if "その他(備考に記載)" in select_tags and "その他(備考に記載)" not in tag_to_kizai:
+      tag_to_kizai.append("その他(備考に記載)")
    
    # 絞り込み：タグに対応する機材名かつ返却日が今日以降
    viewdf = viewdf[
