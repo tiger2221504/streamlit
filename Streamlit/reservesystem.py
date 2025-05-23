@@ -225,19 +225,19 @@ if st.button(label='予約リストを表示(更新)'):
       viewdf["機材名"].isin(tag_to_kizai) &
       (pd.to_datetime(viewdf["返却予定日"]) > datetime.datetime.today() + datetime.timedelta(days=-1))
    ]
-  viewdf = viewdf.drop(columns={'カレンダー','予約ID'})
-
-  if stock == "予約番号":
-    viewdf = viewdf.sort_index()
-    st.write('※予約番号順に表示されています')
-  elif stock == "使用開始日":
-    viewdf = viewdf.sort_values(by="使用開始日")
-    st.write('※使用開始日順に表示されています')
-  elif stock == "返却予定日":
-    viewdf = viewdf.sort_values(by="返却予定日")
-    st.write('※返却予定日順に表示されています')
-
-  st.table(viewdf)
+   viewdf = viewdf.drop(columns={'カレンダー','予約ID'})
+   
+   if stock == "予約番号":
+      viewdf = viewdf.sort_index()
+      st.write('※予約番号順に表示されています')
+   elif stock == "使用開始日":
+      viewdf = viewdf.sort_values(by="使用開始日")
+      st.write('※使用開始日順に表示されています')
+   elif stock == "返却予定日":
+      viewdf = viewdf.sort_values(by="返却予定日")
+      st.write('※返却予定日順に表示されています')
+      
+      st.table(viewdf)
 
 calendar = '<a href="https://calendar.google.com/calendar/embed?src=b2a380f349198cf89751d3efa30f8728b23e29de667b5cb0cad1e780f7b220b8%40group.calendar.google.com&ctz=Asia%2FTokyo" target="_blank">予約カレンダー📅</a>'
 st.markdown(calendar, unsafe_allow_html=True)
