@@ -201,17 +201,17 @@ with st.form("reserve_form", clear_on_submit=False):
          #スプレッドシートに追加する
          write_worksheet(kizai,name,str(start),str(end),purpose,remarks)
         
-        #詳細のプリント
-        st.markdown("**:red[予約完了]**")
-        st.write('機材名：',kizai)
-        st.write('名前：',name)
-        st.write('使用開始日：',start)
-        st.write('返却予定日：',end)
-        st.write('使用目的：',purpose)
-      
-        #通知メール送信
-        send_new_email(kizai,name,str(start),str(end),purpose,remarks)
-        print("メール送信完了")
+         #詳細のプリント
+         st.markdown("**:red[予約完了]**")
+         st.write('機材名：',kizai)
+         st.write('名前：',name)
+         st.write('使用開始日：',start)
+         st.write('返却予定日：',end)
+         st.write('使用目的：',purpose)
+         
+         #通知メール送信
+         send_new_email(kizai,name,str(start),str(end),purpose,remarks)
+         print("メール送信完了")
 
 # exp = st.expander("🌟Tips", expanded=False)
 # glink = '<a href="https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?gid=1580396357#gid=1580396357" target="_blank">Googleスプレッドシート</a>'
