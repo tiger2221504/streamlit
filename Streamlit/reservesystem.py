@@ -159,14 +159,17 @@ st.markdown(howtouse, unsafe_allow_html=True)
 st.write("")
 
 st.write('''## ●新規予約''')
+selected_tag = st.selectbox('*機材のカテゴリ', tag_list)
+if selected_tag == "その他(備考に記載)":
+   kizai_fixed = True
+   filtered_kizai_list = ["その他(備考に記載)"]
+   kizai = "その他(備考に記載)"
+   st.info("※使用機材も「その他(備考に記載)」として登録されます。備考欄に機材名を必ず記入してください。")
+else:
+   kizai_fixed = False
+   filtered_kizai_list = kizai_df[kizai_df["タグ"] == selected_tag]["機材名"].tolist()
 with st.form("reserve_form", clear_on_submit=False):
-   selected_tag = st.selectbox('*カテゴリ', tag_list)
-   if selected_tag == "その他(備考に記載)":
-      kizai = "その他(備考に記載)"
-      st.info("※使用機材も「その他(備考に記載)」として登録されます。備考欄に機材名を必ず記入してください。")
-   else:
-      filtered_kizai_list = kizai_df[kizai_df["タグ"] == selected_tag]["機材名"].tolist()
-      kizai = st.selectbox('*使用機材', filtered_kizai_list)
+   kizai = st.selectbox('*使用機材', filtered_kizai_list, index=0, disabled=kizai_fixed)
    name = st.text_input('*使用者名')
    start = st.date_input('*使用開始日:', datetime.datetime.today(),min_value=datetime.datetime.today())
    end = st.date_input('*返却予定日:', datetime.datetime.today(),min_value=datetime.datetime.today())
