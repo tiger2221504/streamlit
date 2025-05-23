@@ -288,7 +288,7 @@ with st.form("del_form", clear_on_submit=True):
   if submitted2:
      try:
       df = MakeDf(worksheet)
-   except APIError as e:
+     except APIError as e:
       if "Quota exceeded" in str(e):
          st.error("⚠️ 現在Google Sheets APIの利用上限に達しています。")
          st.info("数十秒〜1分後に再度お試しください。\n\nこの制限は通常1分以内に自動で解除されます。")
