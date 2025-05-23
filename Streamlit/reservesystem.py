@@ -182,7 +182,7 @@ with st.form("reserve_form", clear_on_submit=False):
       submitted=True
 
    if submitted1:
-      df = MakeDf(worksheet)
+      df = (worksheet)
       if start > end :
          st.markdown("**:red[エラー]**")
          st.markdown(":red[(返却予定日は使用開始日より前に設定できません。)]")
@@ -233,7 +233,18 @@ select_tags = st.multiselect("■カテゴリで絞り込み", options=tag_list,
 stock = st.radio(label='■表示順', options=('予約番号', '使用開始日', '返却予定日'), index=0, horizontal=True,)
 
 if st.button(label='予約リストを表示(更新)'):
-   viewdf = MakeDf(worksheet)
+   try:
+      viewdf = MakeDf(worksheet)
+   except APIError as e:
+      if "Quota exceeded" in str(e):
+         st.error("⚠️ 現在Google Sheets APIの利用上限に達しています。")
+         st.info("数十秒〜1分後に再度お試しください。\n\nこの制限は通常1分以内に自動で解除されます。")
+         st.stop()
+      else:
+         st.error("Google Sheets APIで予期しないエラーが発生しました。")
+         st.write(e)
+         st.stop()
+         
    # カテゴリに対応する機材を抽出
    tag_to_kizai = kizai_df[kizai_df["タグ"].isin(select_tags)]["機材名"].tolist()
    
@@ -275,40 +286,50 @@ with st.form("del_form", clear_on_submit=True):
       submitted2=True
 
   if submitted2:
-    df = MakeDf(worksheet)
-
-    try:
-      if last_line < num or num < 0:
-        st.markdown("**:red[エラー]**")
-        st.markdown(":red[(指定した予約は存在しません)]")
-      elif name != df.iat[num,1]:
-        st.markdown("**:red[エラー]**")
-        st.markdown(":red[(予約番号と使用者名が一致しません)]")
-      elif num == "":
-        st.markdown("**:red[エラー]**")
-        st.markdown(":red[(予約番号が入力されていません)]")
+     try:
+      df = MakeDf(worksheet)
+   except APIError as e:
+      if "Quota exceeded" in str(e):
+         st.error("⚠️ 現在Google Sheets APIの利用上限に達しています。")
+         st.info("数十秒〜1分後に再度お試しください。\n\nこの制限は通常1分以内に自動で解除されます。")
+         st.stop()
       else:
-        del_num = num
-        del_kizai = df.iat[num,0]
-        del_name = df.iat[num,1]
-        del_start = df.iat[num,2]
-        del_end = df.iat[num,3]
-        del_purpose = df.iat[num,4]
+         st.error("Google Sheets APIで予期しないエラーが発生しました。")
+         st.write(e)
+         st.stop()
 
-        del_worksheet(num+2)
+     try:
+       if last_line < num or num < 0:
+         st.markdown("**:red[エラー]**")
+         st.markdown(":red[(指定した予約は存在しません)]")
+       elif name != df.iat[num,1]:
+         st.markdown("**:red[エラー]**")
+         st.markdown(":red[(予約番号と使用者名が一致しません)]")
+       elif num == "":
+         st.markdown("**:red[エラー]**")
+         st.markdown(":red[(予約番号が入力されていません)]")
+       else:
+         del_num = num
+         del_kizai = df.iat[num,0]
+         del_name = df.iat[num,1]
+         del_start = df.iat[num,2]
+         del_end = df.iat[num,3]
+         del_purpose = df.iat[num,4]
+         
+         del_worksheet(num+2)
+         
+         st.markdown("**:red[予約削除完了]**")
+         st.write('以下の予約を削除しました。')
+         st.write('・機材名：',del_kizai)
+         st.write('・名前：',del_name)
+         st.write('・使用開始日：',del_start)
+         st.write('・返却予定日：',del_end)
+         st.write('・使用目的：',del_purpose)
+         
+         #メール送信
+         send_del_email(del_kizai,del_name,str(del_start),str(del_end),del_purpose)
+         print("メール送信完了")
 
-        st.markdown("**:red[予約削除完了]**")
-        st.write('以下の予約を削除しました。')
-        st.write('・機材名：',del_kizai)
-        st.write('・名前：',del_name)
-        st.write('・使用開始日：',del_start)
-        st.write('・返却予定日：',del_end)
-        st.write('・使用目的：',del_purpose)
-
-        #メール送信
-        send_del_email(del_kizai,del_name,str(del_start),str(del_end),del_purpose)
-        print("メール送信完了")
-
-    except Exception as e:
-      st.markdown("**:red[エラー]**")
-      st.write(e)
+      except Exception as e:
+         st.markdown("**:red[エラー]**")
+         st.write(e)
