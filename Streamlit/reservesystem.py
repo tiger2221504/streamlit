@@ -8,6 +8,21 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from gspread.exceptions import APIError
 
+#ページコンフィグ
+st.set_page_config(
+     page_title="機材予約システム",
+     page_icon="📹",
+     initial_sidebar_state="collapsed",
+     menu_items={
+         'Get help': "https://drive.google.com/file/d/1_opa9G1174gYz0dc0H3JVpJIUTaqvWZQ/view?usp=sharing",
+         'About': """
+         # GHK機材予約システム
+         機材を予約できます。機材の管理については技術課まで。
+         @ 2024 GHK
+         """
+     }
+ )
+
 # 2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
 scope = [
    'https://www.googleapis.com/auth/spreadsheets',
@@ -145,22 +160,6 @@ def send_gmail(msg):
   server.set_debuglevel(0)
   server.login(st.secrets["account"], st.secrets["password"])
   server.send_message(msg)
-
-
-#ページコンフィグ
-st.set_page_config(
-     page_title="機材予約システム",
-     page_icon="📹",
-     initial_sidebar_state="collapsed",
-     menu_items={
-         'Get help': "https://drive.google.com/file/d/1_opa9G1174gYz0dc0H3JVpJIUTaqvWZQ/view?usp=sharing",
-         'About': """
-         # GHK機材予約システム
-         機材を予約できます。機材の管理については技術課まで。
-         @ 2024 GHK
-         """
-     }
- )
 
 
 #★★メンテナンス時にコメントアウトを外す★★
