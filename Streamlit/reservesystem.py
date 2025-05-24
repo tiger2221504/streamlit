@@ -58,7 +58,6 @@ def del_worksheet(line):
   #worksheet.delete_rows(line)
   worksheet.update_cell(line,4,"")
 
-@st.cache_data(ttl=30)
 def MakeDf(_worksheet):
   df = pd.DataFrame(worksheet.get_all_records())
   return df
