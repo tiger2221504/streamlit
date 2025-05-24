@@ -20,7 +20,6 @@ gc = gspread.authorize(credentials)
 #スプレッドシートIDを変数に格納する。
 SPREADSHEET_KEY = '185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow'
 SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/'+SPREADSHEET_KEY+'/edit?usp=sharing'
-print(f"SPREADSHEET_URL = {SPREADSHEET_URL}")
 
 # スプレッドシート（ブック）を開く
 try:
@@ -41,8 +40,13 @@ if "その他(備考に記載)" not in kizai_list:
    kizai_list.append("その他(備考に記載)")
 
 # タグ(カテゴリ)リスト
-tag_sheet = workbook.worksheet('tag')
-tag_df = pd.DataFrame(tag_sheet.get_all_records())
+try:
+   tag_df = load_tag_df()
+except Exception as e:
+   st.error("カテゴリ情報の取得中にエラーが発生しました。(数分後にページを再読み込みしてやり直してください。)")
+   exp_error = st.expander("エラーの詳細", expanded=False)
+   exp_error.write("機材リストの編集はこちらから。")
+   st.stop()
 tag_list = sorted(tag_df["タグ一覧"].dropna().unique().tolist())
 if "その他(備考に記載)" not in tag_list:
    tag_list.append("その他(備考に記載)")
@@ -136,6 +140,11 @@ def send_gmail(msg):
   server.set_debuglevel(0)
   server.login(st.secrets["account"], st.secrets["password"])
   server.send_message(msg)
+
+# カテゴリの一覧を取得する関数(5分間のキャッシュでAPI制限対策)
+@st.cache_data(ttl=300)
+def load_tag_df():
+    return pd.DataFrame(workbook.worksheet('tag').get_all_records())
 
 
 #ページコンフィグ
