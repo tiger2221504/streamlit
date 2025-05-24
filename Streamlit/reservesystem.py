@@ -14,10 +14,7 @@ scope = [
    'https://www.googleapis.com/auth/drive'
    ]
 #ダウンロードしたjsonファイル名をクレデンシャル変数に設定。
-try:
-   credentials = Credentials.from_service_account_file("./Streamlit/streamlit-kizai-reserve-dab82b36d3cf.json", scopes=scope)
-except Exception as e:
-   credentials = Credentials.from_service_account_file("./Streamlit/pythongs-405212-dee426556119.json", scopes=scope)
+credentials = Credentials.from_service_account_file("./Streamlit/pythongs-405212-dee426556119.json", scopes=scope)
 #OAuth2の資格情報を使用してGoogle APIにログイン。
 gc = gspread.authorize(credentials)
 #スプレッドシートIDを変数に格納する。
@@ -183,7 +180,7 @@ with st.form("reserve_form", clear_on_submit=False):
       submitted=True
 
    if submitted1:
-      df = (worksheet)
+      df = MakeDf(worksheet)
       if start > end :
          st.markdown("**:red[エラー]**")
          st.markdown(":red[(返却予定日は使用開始日より前に設定できません。)]")
@@ -225,7 +222,7 @@ with st.form("reserve_form", clear_on_submit=False):
 
 glink = '<a href="https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?gid=1580396357#gid=1580396357" target="_blank">Googleスプレッドシート</a>'
 st.markdown(glink, unsafe_allow_html=True)
-st.write("機材リストの編集はこちらから。")
+st.write("👆機材リストの編集はこちらから。")
 
 st.write('''##''')
 
