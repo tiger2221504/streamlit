@@ -19,9 +19,17 @@ credentials = Credentials.from_service_account_file("./Streamlit/pythongs-405212
 gc = gspread.authorize(credentials)
 #スプレッドシートIDを変数に格納する。
 SPREADSHEET_KEY = '185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow'
+SPREADSHEET_URL = 'https://docs.google.com/spreadsheets/d/'+SPREADSHEET_KEY+'/edit?usp=sharing'
+print(f"SPREADSHEET_URL = {SPREADSHEET_URL}")
 
 # スプレッドシート（ブック）を開く
-workbook = gc.open_by_key(SPREADSHEET_KEY)
+try:
+   # workbook = gc.open_by_key(SPREADSHEET_KEY)
+   workbook = gc.open_by_url(SPREADSHEET_URL)
+except Exception as e:
+   st.error("❌ データの読み込みに失敗しました。")
+   st.write(e)
+   st.stop()
 # シートを開く
 worksheet = workbook.worksheet('sheet1')
 
@@ -230,17 +238,7 @@ select_tags = st.multiselect("■カテゴリで絞り込み", options=tag_list,
 stock = st.radio(label='■表示順', options=('予約番号', '使用開始日', '返却予定日'), index=0, horizontal=True,)
 
 if st.button(label='予約リストを表示(更新)'):
-   try:
-      viewdf = MakeDf(worksheet)
-   except APIError as e:
-      if "Quota exceeded" in str(e):
-         st.error("⚠️ 現在Google Sheets APIの利用上限に達しています。")
-         st.info("数十秒〜1分後に再度お試しください。\n\nこの制限は通常1分以内に自動で解除されます。")
-         st.stop()
-      else:
-         st.error("Google Sheets APIで予期しないエラーが発生しました。")
-         st.write(e)
-         st.stop()
+   viewdf = MakeDf(worksheet)
          
    # カテゴリに対応する機材を抽出
    tag_to_kizai = kizai_df[kizai_df["タグ"].isin(select_tags)]["機材名"].tolist()
@@ -285,18 +283,7 @@ with st.form("del_form", clear_on_submit=True):
       submitted2=True
 
   if submitted2:
-     try:
       df = MakeDf(worksheet)
-     except APIError as e:
-      if "Quota exceeded" in str(e):
-         st.error("⚠️ 現在Google Sheets APIの利用上限に達しています。")
-         st.info("数十秒〜1分後に再度お試しください。\n\nこの制限は通常1分以内に自動で解除されます。")
-         st.stop()
-      else:
-         st.error("Google Sheets APIで予期しないエラーが発生しました。")
-         st.write(e)
-         st.stop()
-
       try:
        if last_line < num or num < 0:
          st.markdown("**:red[エラー]**")
@@ -325,7 +312,7 @@ with st.form("del_form", clear_on_submit=True):
          #メール送信
          send_del_email(del_kizai,del_name,str(del_start),str(del_end),del_purpose)
          print("メール送信完了")
-
+      
       except Exception as e:
          st.markdown("**:red[エラー]**")
          st.write(e)
