@@ -39,6 +39,11 @@ kizai_list = kizai_df["機材名"].tolist()
 if "その他(備考に記載)" not in kizai_list:
    kizai_list.append("その他(備考に記載)")
 
+# カテゴリの一覧を取得する関数(5分間のキャッシュでAPI制限対策)
+@st.cache_data(ttl=300)
+def load_tag_df():
+    return pd.DataFrame(workbook.worksheet('tag').get_all_records())
+
 # タグ(カテゴリ)リスト
 try:
    tag_df = load_tag_df()
@@ -140,11 +145,6 @@ def send_gmail(msg):
   server.set_debuglevel(0)
   server.login(st.secrets["account"], st.secrets["password"])
   server.send_message(msg)
-
-# カテゴリの一覧を取得する関数(5分間のキャッシュでAPI制限対策)
-@st.cache_data(ttl=300)
-def load_tag_df():
-    return pd.DataFrame(workbook.worksheet('tag').get_all_records())
 
 
 #ページコンフィグ
