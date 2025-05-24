@@ -45,7 +45,7 @@ try:
 except Exception as e:
    st.error("カテゴリ情報の取得中にエラーが発生しました。(数分後にページを再読み込みしてやり直してください。)")
    exp_error = st.expander("エラーの詳細", expanded=False)
-   exp_error.write("機材リストの編集はこちらから。")
+   exp_error.write(e)
    st.stop()
 tag_list = sorted(tag_df["タグ一覧"].dropna().unique().tolist())
 if "その他(備考に記載)" not in tag_list:
