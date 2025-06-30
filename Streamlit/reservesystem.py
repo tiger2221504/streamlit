@@ -168,8 +168,7 @@ def send_gmail(msg):
 
 st.title('GHK 機材予約システム')
 
-howtouse = '<a href="https://drive.google.com/file/d/1_opa9G1174gYz0dc0H3JVpJIUTaqvWZQ/view?usp=sharing" target="_blank">使い方</a>'
-st.markdown(howtouse, unsafe_allow_html=True)
+st.link_button("📚使い方", "https://drive.google.com/file/d/1_opa9G1174gYz0dc0H3JVpJIUTaqvWZQ/view?usp=sharing")
 st.write("")
 
 st.write('''## ●新規予約''')
@@ -235,9 +234,7 @@ with st.form("reserve_form", clear_on_submit=False):
 # exp.markdown(glink, unsafe_allow_html=True)
 # exp.write("機材リストの編集はこちらから。")
 
-glink = '<a href="https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?gid=1580396357#gid=1580396357" target="_blank">Googleスプレッドシート</a>'
-st.markdown(glink, unsafe_allow_html=True)
-st.write("👆機材リストの編集はこちらから。")
+st.link_button("📝機材リストの編集はこちらから", "https://docs.google.com/spreadsheets/d/185-FzmoOI0BGbG9nKzHq5JXjLHRs-dfKkOa7MzaOxow/edit?gid=1580396357#gid=1580396357")
 
 st.write('''##''')
 
@@ -271,9 +268,6 @@ if st.button(label='予約リストを表示(更新)'):
       st.write('※返却予定日順に表示されています')
       
    st.table(viewdf)
-
-calendar = '<a href="https://calendar.google.com/calendar/embed?src=b2a380f349198cf89751d3efa30f8728b23e29de667b5cb0cad1e780f7b220b8%40group.calendar.google.com&ctz=Asia%2FTokyo" target="_blank">予約カレンダー📅</a>'
-st.markdown(calendar, unsafe_allow_html=True)
 
 st.write('''##''')
 
